@@ -1,9 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kandivali Phool Market</title>
+     <link rel="icon" type="image/png" href="{% static 'assets/images/logo/imagelogo.png' %}" sizes="192x192" />
+    
+
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Lato:wght@300;400;700&amp;display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css" rel="stylesheet" />
@@ -18,7 +22,7 @@
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex-shrink-0">
-                    <img class="h-12" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo" />
+                    <img class="h-20 " src="{% static 'assets\images\logo\NoBgLogo.png' %}" alt="Logo" />
                 </div>
                 <nav class="hidden md:flex space-x-6">
                     <a href="#" class="text-custom hover:text-custom/80">Home</a>
@@ -29,9 +33,6 @@
                 </nav>
                 <div class="flex items-center space-x-6">
                     <div class="flex-1 max-w-lg mx-8"><div class="relative"><input type="text" placeholder="Search products..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-custom focus:border-custom" /><button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-custom"><i class="fas fa-search"></i></button></div></div>
-                    <button class="text-gray-600 hover:text-custom">
-                        <i class="fas fa-shopping-cart text-xl"></i>
-                    </button>
                     <button class="bg-custom text-white px-6 py-2 !rounded-button hover:bg-custom/90">
                         Bulk Orders
                     </button>
@@ -41,20 +42,23 @@
     </header>
 
     <main class="pt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div></div><div class="bg-gray-100 py-4"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center space-x-4 overflow-x-auto"><button class="bg-custom text-white px-4 py-2 rounded-lg whitespace-nowrap">All Products</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Wedding Garlands</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Festival Garlands</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Temple Garlands</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Custom Designs</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Bulk Orders</button></div></div></div>
+        <div class="bg-gray-100 py-4"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center space-x-4 overflow-x-auto"><button class="bg-custom text-white px-4 py-2 rounded-lg whitespace-nowrap">All Products</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Wedding Garlands</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Festival Garlands</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Temple Garlands</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Custom Designs</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Bulk Orders</button></div></div></div>
         <div class="glide relative h-[600px] overflow-hidden">
             <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
                     <li class="glide__slide relative">
-                        <img src="https://creatie.ai/ai/api/search-image?query=A luxurious and elegant floral garland arrangement displayed against a soft, neutral background. The garland features fresh roses, peonies, and greenery, creating a romantic and sophisticated atmosphere. Professional studio lighting enhances the delicate details.&width=1440&height=600&orientation=landscape&flag=c72bfb4f-4a1a-4492-bd38-8a5ea78375da&flag=b03e9ccf-659d-4154-9eaa-3d926ecf7ac8&flag=d39c5376-0a98-42f2-a079-eaadbca89c06" class="w-full h-[600px] object-cover" alt="Garland" />
+                        <img src="{% static 'assets/images/garland_pictures/headBg1.jpg' %}" alt="Garland" class="w-screen" />
+
                         <div class="absolute inset-0 bg-black/40"></div>
                         <div class="absolute inset-0 flex items-center justify-center text-center">
                             <div class="max-w-4xl px-4">
                                 <h1 class="font-[&#39;Playfair_Display&#39;] text-5xl text-white mb-6">Add a Touch of Beauty to Your Life with Our Premium Garlands</h1>
                                 <div class="flex justify-center gap-4">
-                                    <button class="bg-custom text-white px-8 py-3 !rounded-button hover:bg-custom/90">
+                                    <button onclick="document.getElementById('product_collections').scrollIntoView({ behavior: 'smooth' });" 
+                                            class="bg-custom text-white px-8 py-3 !rounded-button hover:bg-custom/90">
                                         Shop Now
                                     </button>
+
                                     <button class="bg-white text-custom px-8 py-3 !rounded-button hover:bg-gray-100">
                                         Contact for Bulk Orders
                                     </button>
@@ -77,7 +81,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto">
                     <h2 class="font-[&#39;Playfair_Display&#39;] text-4xl mb-6">Welcome to Bloom &amp; Garland</h2>
-                    <p class="text-gray-600 mb-8">We craft exquisite garlands that bring beauty and elegance to your special moments. Each piece is handcrafted with care, using the finest materials to create stunning designs that perfectly match your style and occasion.</p>
+                    <p class="text-gray-600 mb-8">We handcraft traditional Indian garlands that add grace, color, and sacred beauty to your most cherished moments. Made with love and the finest flowers and materials, each piece reflects timeless craftsmanship and the spirit of celebration, perfectly suited for weddings, pujas, and festive occasions.</p>
                     <button class="bg-custom text-white px-8 py-3 !rounded-button hover:bg-custom/90">
                         Explore Our Products
                     </button>
@@ -85,12 +89,12 @@
             </div>
         </section>
 
-        <section class="py-20">
+        <section class="py-20" id="product_collections">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="font-[&#39;Playfair_Display&#39;] text-4xl text-center mb-12">Our Product Collections</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="group relative overflow-hidden rounded-lg">
-                        <img src="https://creatie.ai/ai/api/search-image?query=A stunning wedding garland with white roses and delicate baby's breath flowers, elegantly arranged against a light beige background. The garland features a mix of fresh flowers and silk ribbons, perfect for wedding ceremonies.&width=400&height=500&orientation=portrait&flag=bbd9ce20-3fd4-4299-b232-452d60d83429&flag=5b012cb5-ae15-4fda-b6e3-a20a3e17f5a1&flag=9275bffc-612d-4b9f-bf9b-01a5ce63dc1c" class="w-full h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-300" alt="Wedding Garlands" />
+                        <img src="{% static 'assets/images/garland_pictures/productSectionImage1.jpg' %}" class="w-full h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-300" alt="Wedding Garlands" />
                         <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300"></div>
                         <div class="absolute inset-0 flex items-center justify-center">
                             <div class="text-center">
@@ -102,7 +106,7 @@
                         </div>
                     </div>
                     <div class="group relative overflow-hidden rounded-lg">
-                        <img src="https://creatie.ai/ai/api/search-image?query=A wholesale collection of colorful flower garlands arranged in neat rows against a clean white background. The image showcases various styles and colors of garlands, demonstrating the variety available for bulk orders.&width=400&height=500&orientation=portrait&flag=864e8f9f-ffe1-4066-b8fb-f11f1278db51&flag=c06fce55-16ef-4f58-ac62-5e86a2418a77&flag=9e9ca166-9d8c-43ab-84d1-d199adc631b8" class="w-full h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-300" alt="Wholesale Garlands" />
+                        <img src="{% static 'assets/images/garland_pictures/productSectionImage2.jpg' %}" class="w-full h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-300" alt="Wholesale Garlands" />
                         <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300"></div>
                         <div class="absolute inset-0 flex items-center justify-center">
                             <div class="text-center">
@@ -114,7 +118,7 @@
                         </div>
                     </div>
                     <div class="group relative overflow-hidden rounded-lg">
-                        <img src="https://creatie.ai/ai/api/search-image?query=A custom-designed floral garland featuring unique color combinations and exotic flowers, artistically arranged against a neutral gray background. The garland showcases innovative design elements and premium materials.&width=400&height=500&orientation=portrait&flag=0830e912-d829-4dfa-bcc0-e0767309b7a0&flag=b6ed90bc-3e0a-45db-aa21-aec42ec85376&flag=159f9996-bda0-4e63-9224-83db4a28038f" class="w-full h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-300" alt="Custom Designs" />
+                        <img src="{% static 'assets/images/garland_pictures/productSectionImage3.jpg' %}" class="w-full h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-300" alt="Custom Designs" />
                         <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300"></div>
                         <div class="absolute inset-0 flex items-center justify-center">
                             <div class="text-center">
@@ -138,9 +142,9 @@
                             <li class="glide__slide">
                                 <div class="bg-white p-8 rounded-lg shadow-sm max-w-2xl mx-auto">
                                     <div class="flex items-center mb-4">
-                                        <img src="https://creatie.ai/ai/api/search-image?query=A professional headshot of a smiling woman with natural makeup and styled hair against a neutral background, perfect for a business profile or testimonial.&width=60&height=60&orientation=squarish&flag=039c0245-6e2b-407b-8b15-0553e616225f&flag=fd273442-cbfc-4f1f-82d4-92a34cf53f89&flag=76cb9629-cbd9-497d-9855-55cf022420f9" class="w-12 h-12 rounded-full mr-4" alt="Customer" />
+                                        <img src="{% static 'assets\images\people/man1.png'%}" class="w-12 h-12 rounded-full mr-4" alt="Customer" />
                                         <div>
-                                            <h4 class="font-semibold">Sarah Johnson</h4>
+                                            <h4 class="font-semibold">Amit Tiwari</h4>
                                             <div class="flex text-custom">
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star"></i>
@@ -150,7 +154,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p class="text-gray-600">&#34;The garlands were absolutely stunning! Perfect for my wedding day. The quality and attention to detail exceeded my expectations.&#34;</p>
+                                    <p class="text-gray-600">&#34;Flowers toh bilkul stunning the! Mere wedding day ke liye perfect choice thi. Quality aur detailing ne meri expectations ko cross kar diya.&#34;</p>
                                 </div>
                             </li>
                         </ul>
@@ -168,7 +172,7 @@
                         <div class="space-y-4">
                             <div class="flex items-center">
                                 <i class="fas fa-phone text-custom mr-4"></i>
-                                <span>+1 (555) 123-4567</span>
+                                <span>+91 88507 21321</span>
                             </div>
                             <div class="flex items-center">
                                 <i class="fas fa-envelope text-custom mr-4"></i>
@@ -202,13 +206,16 @@
                 </div>
             </div>
         </section>
-    </main><div class="bg-gray-100 p-4"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between"><div class="flex items-center space-x-4"><span class="text-gray-700 font-medium">Price Range:</span><div class="flex items-center space-x-2"><input type="number" placeholder="Min" class="w-24 px-3 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-custom focus:border-custom" /><span>-</span><input type="number" placeholder="Max" class="w-24 px-3 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-custom focus:border-custom" /></div></div><button class="bg-custom text-white px-4 py-1 rounded-lg hover:bg-custom/90">Apply Filters</button></div></div></div>
+    </main>
 
     <footer class="bg-gray-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div class="space-y-4">
-                    <img class="h-12" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo" />
+
+                    <!-- Footer logo Is here-->
+                    <img class="h-24" src="{% static 'assets/images/logo/NoBgLogo.png' %}" alt="Logo" />
+
                     <p class="text-gray-400">Crafting beautiful garlands for your special moments.</p>
                 </div>
                 <div>
@@ -233,15 +240,7 @@
                         </a>
                     </div>
                 </div>
-                <div>
-                    <h3 class="font-semibold text-lg mb-4">Newsletter</h3>
-                    <form class="space-y-4">
-                        <input type="email" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-custom focus:border-custom" placeholder="Your email" />
-                        <button type="submit" class="w-full bg-custom text-white py-2 !rounded-button hover:bg-custom/90">
-                            Subscribe
-                        </button>
-                    </form>
-                </div>
+               
             </div>
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
                 <p>2025 Kandivali Phool Market. All rights reserved.</p>
