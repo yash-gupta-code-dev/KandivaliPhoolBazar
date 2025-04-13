@@ -17,12 +17,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from mainApp import views
+from .views import *
+
+
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", views.HomePageView),
-    path("api-auth/", include("rest_framework.urls")),
-   path("api/", include('mainApp.urls'))
+     path('all/products/', ProductListView.as_view(), name='product-list'),
+
 ]
