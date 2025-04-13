@@ -39,7 +39,7 @@ class Product(models.Model):
     )
 
     # Optional product image, uploaded to the "products/" folder
-    image = models.ImageField(upload_to="products/", blank=True, null=True)
+    image = models.ImageField(upload_to="products/", blank=False, null=True)
 
     def __str__(self):
         # Human-readable name for admin or shell displays

@@ -71,3 +71,4 @@ class ProductSerializer(serializers.ModelSerializer):
         if not validated_data.get("slug"):
             validated_data["slug"] = slugify(validated_data.get("name", instance.name))
         return super().update(instance, validated_data)
+        
