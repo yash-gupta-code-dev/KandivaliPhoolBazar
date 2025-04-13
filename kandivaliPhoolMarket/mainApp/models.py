@@ -11,18 +11,18 @@ class Product(models.Model):
     slug = models.SlugField(unique=True, blank=True)
 
     # A detailed description of the product
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=False)
 
     # Regular price of the product
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     # Optional discounted price, if there's a sale or promotion
     discounted_price = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True
+        max_digits=10, decimal_places=2, null=True, blank=False
     )
 
     # Current quantity of the product in stock
-    stock = models.PositiveIntegerField(default=0)
+    stock = models.PositiveIntegerField(blank=False)
 
     # Whether the product is available for purchase or not
     available = models.BooleanField(default=True)
@@ -35,7 +35,7 @@ class Product(models.Model):
 
     # Foreign key to a Category model (e.g., "Electronics", "Clothing")
     category = models.ForeignKey(
-        "Category", on_delete=models.SET_NULL, null=True, blank=True
+        "Category", on_delete=models.SET_NULL, null=True, blank=False
     )
 
     # Optional product image, uploaded to the "products/" folder

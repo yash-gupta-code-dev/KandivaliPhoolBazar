@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\kandivaliPhoolMarket",
+    "\\mainApp",
     "\\templates"
   ],
-  "SelectedNode": "\\templates\\homepage.html",
+  "SelectedNode": "\\mainApp\\models.py",
   "PreviewInSolutionExplorer": false
 }
