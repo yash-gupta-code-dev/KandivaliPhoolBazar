@@ -3,8 +3,9 @@
     "",
     "\\kandivaliPhoolMarket",
     "\\mainApp",
-    "\\templates"
+    "\\media",
+    "\\media\\products"
   ],
-  "SelectedNode": "\\mainApp\\models.py",
+  "SelectedNode": "\\.gitignore",
   "PreviewInSolutionExplorer": false
 }
