@@ -8,7 +8,13 @@ from rest_framework import viewsets
 from .serializers import ProductSerializer
 
 
+
 # Create your views here.
+
+def BaseHTML(request):
+    return render(request, 'base.html')
+
+
 def HomePageView(request):
     return render(request, "homepage.html")
 
@@ -25,3 +31,8 @@ class ProductListView(APIView):
              serializer.save()
              return Response(serializer.data, status=status.HTTP_201_CREATED)
          return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def ProductPage(request):
+
+    return render(request, 'product.html')

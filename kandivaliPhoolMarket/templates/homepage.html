@@ -5,8 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kandivali Phool Market</title>
-     <link rel="icon" type="image/png" href="{% static 'assets/images/logo/imagelogo.png' %}" sizes="192x192" />
-    
+    <link rel="icon" type="image/png" href="{% static 'assets/images/logo/imagelogo.png' %}" sizes="192x192" />
+
 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Lato:wght@300;400;700&amp;display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
@@ -25,8 +25,8 @@
                     <img class="h-20 " src="{% static 'assets\images\logo\NoBgLogo.png' %}" alt="Logo" />
                 </div>
                 <nav class="hidden md:flex space-x-6">
-                    <a href="#" class="text-custom hover:text-custom/80">Home</a>
-                    <a href="#" class="text-gray-600 hover:text-custom">Products</a>
+                    <a href="{% url 'home' %}" class="text-custom hover:text-custom/80">Home</a>
+                    <a href="{% url 'products' %}" class="text-gray-600 hover:text-custom">Products</a>
                     <a href="#" class="text-gray-600 hover:text-custom">About Us</a>
                     <a href="#" class="text-gray-600 hover:text-custom">Reviews</a>
                     <a href="#" class="text-gray-600 hover:text-custom">Contact</a>
@@ -42,7 +42,15 @@
     </header>
 
     <main class="pt-20">
-        <div class="bg-gray-100 py-4"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center space-x-4 overflow-x-auto"><button class="bg-custom text-white px-4 py-2 rounded-lg whitespace-nowrap">All Products</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Wedding Garlands</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Festival Garlands</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Temple Garlands</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Custom Designs</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Bulk Orders</button></div></div></div>
+        <div class="bg-gray-100 py-4">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center space-x-4 overflow-x-auto">
+                    <a href="{% url 'products'%}"><button class="bg-custom text-white px-4 py-2 rounded-lg whitespace-nowrap">All Products</button></a>
+
+                    <button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Wedding Garlands</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Festival Garlands</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Temple Garlands</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Custom Designs</button><button class="bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 whitespace-nowrap">Bulk Orders</button>
+                </div>
+            </div>
+        </div>
         <div class="glide relative h-[600px] overflow-hidden">
             <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
@@ -54,7 +62,7 @@
                             <div class="max-w-4xl px-4">
                                 <h1 class="font-[&#39;Playfair_Display&#39;] text-5xl text-white mb-6">Add a Touch of Beauty to Your Life with Our Premium Garlands</h1>
                                 <div class="flex justify-center gap-4">
-                                    <button onclick="document.getElementById('product_collections').scrollIntoView({ behavior: 'smooth' });" 
+                                    <button onclick="document.getElementById('product_collections').scrollIntoView({ behavior: 'smooth' });"
                                             class="bg-custom text-white px-8 py-3 !rounded-button hover:bg-custom/90">
                                         Shop Now
                                     </button>
@@ -221,7 +229,7 @@
                 <div>
                     <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">Products</a></li>
+                        <li><a href="{% url 'products' %}" class="text-gray-400 hover:text-white">Products</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
                     </ul>
@@ -240,7 +248,7 @@
                         </a>
                     </div>
                 </div>
-               
+
             </div>
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
                 <p>2025 Kandivali Phool Market. All rights reserved.</p>

@@ -24,5 +24,7 @@ from .views import *
 
 urlpatterns = [
      path('all/products/', ProductListView.as_view(), name='product-list'),
+     path('products/', ProductPage, name='products'),
+     path('base/', BaseHTML, name='base'),
 
 ]
