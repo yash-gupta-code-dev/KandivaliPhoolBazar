@@ -4,6 +4,9 @@ from django.contrib import admin
 
 
 class Product(models.Model):
+
+    #Id for fetching Product
+    product_id = models.AutoField(primary_key = True)
     # The name of the product (e.g., "Apple iPhone 15")
     name = models.CharField(max_length=255)
 

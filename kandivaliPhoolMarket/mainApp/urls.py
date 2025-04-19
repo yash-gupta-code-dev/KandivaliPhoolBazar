@@ -23,8 +23,11 @@ from .views import *
 
 
 urlpatterns = [
+     path("", HomePageView, name="home"),
      path('all/products/', ProductListView.as_view(), name='product-list'),
      path('products/', ProductPage, name='products'),
      path('base/', BaseHTML, name='base'),
+     path('products/<int:product_id>', product_detail, name='product-detail'),
+
 
 ]
