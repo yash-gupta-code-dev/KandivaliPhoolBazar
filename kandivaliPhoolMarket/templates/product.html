@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Floral Elegance</title>
+    <title>Kandivali Phool Market - All Products</title>
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script>tailwind.config = { theme: { extend: { colors: { primary: '#6d28d9', secondary: '#8b5cf6' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,6 +27,32 @@
         input[type="number"] {
             -moz-appearance: textfield;
         }
+
+        #product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-image-container {
+            height: 12rem;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+
     </style>
 </head>
 
@@ -34,10 +60,18 @@
     <!-- Header -->
     <header class="fixed top-0 w-full bg-white shadow-sm z-50">
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <img class="h-20 " src="{% static 'assets\images\logo\NoBgLogo.png' %}" alt="Logo" />
+                    <img class="h-12 md:h-16" src="{% static 'assets/images/logo/NoBgLogo.png' %}" alt="Logo" />
                 </div>
+
+                <!-- Mobile Menu Button (hidden on desktop) -->
+                <button class="md:hidden text-gray-600 hover:text-custom focus:outline-none relative left-[25vw]" id="mobile-menu-button">
+                    Menu
+                </button>
+
+                <!-- Desktop Navigation (hidden on mobile) -->
                 <nav class="hidden md:flex space-x-6">
                     <a href="{% url 'home' %}" class="text-custom hover:text-custom/80">Home</a>
                     <a href="{% url 'products' %}" class="text-gray-600 hover:text-custom">Products</a>
@@ -45,96 +79,177 @@
                     <a href="#" class="text-gray-600 hover:text-custom">Reviews</a>
                     <a href="#" class="text-gray-600 hover:text-custom">Contact</a>
                 </nav>
-                <div class="flex items-center space-x-6">
-                    <div class="flex-1 max-w-lg mx-8">
+
+                <!-- Search and Bulk Order (visible on all screens) -->
+                <div class="flex items-center space-x-4 md:space-x-6">
+                    <!-- Search Bar (hidden on mobile unless toggled) -->
+                    <div class="hidden md:block flex-1 max-w-lg mx-4">
                         <div class="relative">
                             <input type="text" placeholder="Search products..."
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-custom focus:border-custom" /><button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-custom">
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-custom focus:border-custom" />
+                            <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-custom">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
                     </div>
-                    <button class="bg-black text-white px-6 py-2 !rounded-button hover:bg-custom/90">
+
+
+
+                    <!-- Bulk Order Button -->
+                    <button class="bg-black text-white px-4 py-1 md:px-6 md:py-2 !rounded-button hover:bg-custom/90 whitespace-nowrap text-sm md:text-base">
                         Bulk Orders
                     </button>
+                </div>
+            </div>
+
+            <!-- Mobile Search Bar (hidden by default) -->
+            <!-- Mobile Navigation Menu (hidden by default) -->
+            <div class="md:hidden hidden bg-white py-2" id="mobile-menu">
+                <div class="flex flex-col">
+                    <div class=" bg-white" id="mobile-search">
+                        <div class="relative">
+                            <input type="text" placeholder="Search products..."
+                                   class="w-full  border border-gray-300 rounded-lg focus:ring-2 focus:ring-custom focus:border-custom" />
+                            <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-custom">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <a href="{% url 'home' %}" class="text-custom py-2">Home</a>
+                    <a href="{% url 'products' %}" class="text-gray-600 py-2 hover:text-custom">Products</a>
+                    <a href="#" class="text-gray-600 py-2 hover:text-custom">About Us</a>
+                    <a href="#" class="text-gray-600 py-2 hover:text-custom">Reviews</a>
+                    <a href="#" class="text-gray-600 py-2 hover:text-custom">Contact</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow container mx-auto px-6 py-8 flex flex-col md:flex-row gap-8">
+    <!-- JavaScript for mobile menu toggle -->
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function () {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        document.getElementById('search-toggle').addEventListener('click', function () {
+            document.getElementById('mobile-search').classList.toggle('hidden');
+        });
+    </script>
+
+
+
+    <main class="flex-grow container mx-auto px-6 py-10 flex flex-col md:flex-row gap-8 relative top-[10vh]">
         <!-- Categories Sidebar -->
         <aside class="w-full md:w-64 flex-shrink-0">
-            <h2 class="text-lg font-semibold mb-4">Categories</h2>
-            <div class="bg-gray-100 rounded overflow-hidden">
-                <ul>
-                    <li class="bg-gray-200">
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-300 transition">
-                            <span class="w-6 h-6 flex items-center justify-center mr-3">
-                                <i class="ri-flower-line"></i>
-                            </span>
-                            All Flowers
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
-                            <span class="w-6 h-6 flex items-center justify-center mr-3">
-                                <i class="ri-flower-line"></i>
-                            </span>
-                            Roses
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
-                            <span class="w-6 h-6 flex items-center justify-center mr-3">
-                                <i class="ri-plant-line"></i>
-                            </span>
-                            Lilies
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
-                            <span class="w-6 h-6 flex items-center justify-center mr-3">
-                                <i class="ri-plant-line"></i>
-                            </span>
-                            Tulips
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
-                            <span class="w-6 h-6 flex items-center justify-center mr-3">
-                                <i class="ri-flower-line"></i>
-                            </span>
-                            Orchids
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
-                            <span class="w-6 h-6 flex items-center justify-center mr-3">
-                                <i class="ri-sun-line"></i>
-                            </span>
-                            Sunflowers
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
-                            <span class="w-6 h-6 flex items-center justify-center mr-3">
-                                <i class="ri-flower-line"></i>
-                            </span>
-                            Daisies
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
-                            <span class="w-6 h-6 flex items-center justify-center mr-3">
-                                <i class="ri-leaf-line"></i>
-                            </span>
-                            Seasonal Flowers
-                        </a>
-                    </li>
-                </ul>
+            <!-- Collapse/Expand Button (Visible on mobile) -->
+            <button id="sidebar-toggle" class="md:hidden flex items-center justify-between w-full px-4 py-3 bg-gray-200 text-gray-800 rounded mb-2">
+                <span class="font-medium">Categories</span>
+                <i id="toggle-icon" class="ri-arrow-down-s-line transition-transform duration-200"></i>
+            </button>
+
+            <!-- Sidebar Content -->
+            <div id="sidebar-content" class="hidden md:block">
+                <h2 class="text-lg font-semibold mb-4 hidden md:block">Categories</h2>
+                <div class="bg-gray-100 rounded overflow-hidden">
+                    <ul>
+                        <li class="bg-gray-200">
+                            <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-300 transition">
+                                <span class="w-6 h-6 flex items-center justify-center mr-3">
+                                    <i class="ri-flower-line"></i>
+                                </span>
+                                All Flowers
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
+                                <span class="w-6 h-6 flex items-center justify-center mr-3">
+                                    <i class="ri-flower-line"></i>
+                                </span>
+                                Roses
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
+                                <span class="w-6 h-6 flex items-center justify-center mr-3">
+                                    <i class="ri-plant-line"></i>
+                                </span>
+                                Lilies
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
+                                <span class="w-6 h-6 flex items-center justify-center mr-3">
+                                    <i class="ri-plant-line"></i>
+                                </span>
+                                Tulips
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
+                                <span class="w-6 h-6 flex items-center justify-center mr-3">
+                                    <i class="ri-flower-line"></i>
+                                </span>
+                                Orchids
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
+                                <span class="w-6 h-6 flex items-center justify-center mr-3">
+                                    <i class="ri-sun-line"></i>
+                                </span>
+                                Sunflowers
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
+                                <span class="w-6 h-6 flex items-center justify-center mr-3">
+                                    <i class="ri-flower-line"></i>
+                                </span>
+                                Daisies
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-200 transition">
+                                <span class="w-6 h-6 flex items-center justify-center mr-3">
+                                    <i class="ri-leaf-line"></i>
+                                </span>
+                                Seasonal Flowers
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </aside>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const toggleBtn = document.getElementById('sidebar-toggle');
+                const sidebarContent = document.getElementById('sidebar-content');
+                const toggleIcon = document.getElementById('toggle-icon');
+
+                // Toggle sidebar on mobile
+                toggleBtn.addEventListener('click', function () {
+                    sidebarContent.classList.toggle('hidden');
+                    toggleIcon.classList.toggle('rotate-180');
+                });
+
+                // Auto-close when clicking a link on mobile
+                document.querySelectorAll('#sidebar-content a').forEach(link => {
+                    link.addEventListener('click', function () {
+                        if (window.innerWidth < 768) { // md breakpoint
+                            sidebarContent.classList.add('hidden');
+                            toggleIcon.classList.remove('rotate-180');
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <style>
+            .rotate-180 {
+                transform: rotate(180deg);
+            }
+        </style>
 
         <!-- Main Content -->
         <div class="flex-grow">
@@ -142,46 +257,26 @@
             <section>
                 <h2 class="text-2xl font-bold mb-6">Featured Flowers</h2>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
 
                     <!-- Product 1 -->
                     <!--<div class="bg-white rounded shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition">
-        <div class="h-48 overflow-hidden">
-            <img src="https://readdy.ai/api/search-image?query=beautiful%20red%20roses%20bouquet%20with%20green%20leaves%20on%20white%20background%2C%20professional%20product%20photography%2C%20high%20resolution%2C%20commercial%20quality%2C%20elegant%20arrangement&width=400&height=300&seq=1&orientation=landscape"
-                 alt="Red Roses Bouquet" class="w-full h-full object-cover object-top">
-        </div>
-        <div class="p-4">
-            <h3 class="font-semibold text-lg">Red Roses Bouquet</h3>
-            <p class="text-gray-600 text-sm mt-1">Classic symbol of love</p>
-            <div class="mt-4 flex items-center justify-between">
-                <button class="bg-gray-900 text-white px-3 py-1.5 !rounded-button text-sm whitespace-nowrap hover:bg-gray-800 transition flex items-center gap-2">
-                    <i class="ri-whatsapp-line ri-lg"></i>
-                    Get a Quote
-                </button>
-            </div>
-        </div>
-    </div>-->
-
-                    <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Template card (will be cloned) -->
-                        <div id="product-card-template" class="bg-white rounded shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition hidden">
-                            <div class="h-48 overflow-hidden">
-                                <img src="" alt="" class="product-image w-full h-full object-cover object-top">
-                            </div>
-                            <div class="p-4">
-                                <h3 class="product-title font-semibold text-lg"></h3>
-                                <p class="product-description text-gray-600 text-sm mt-1"></p>
-                                <div class="mt-4 flex items-center justify-between">
-                                    <button class="bg-gray-900 text-white px-3 py-1.5 !rounded-button text-sm whitespace-nowrap hover:bg-gray-800 transition flex items-center gap-2">
-                                        <i class="ri-whatsapp-line ri-lg"></i>
-                                        Get a Quote
-                                    </button>
-                                </div>
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://readdy.ai/api/search-image?query=beautiful%20red%20roses%20bouquet%20with%20green%20leaves%20on%20white%20background%2C%20professional%20product%20photography%2C%20high%20resolution%2C%20commercial%20quality%2C%20elegant%20arrangement&width=400&height=300&seq=1&orientation=landscape"
+                                 alt="Red Roses Bouquet" class="w-full h-full object-cover object-top">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-lg">Red Roses Bouquet</h3>
+                            <p class="text-gray-600 text-sm mt-1">Classic symbol of love</p>
+                            <div class="mt-4 flex items-center justify-between">
+                                <button class="bg-gray-900 text-white px-3 py-1.5 !rounded-button text-sm whitespace-nowrap hover:bg-gray-800 transition flex items-center gap-2">
+                                    <i class="ri-whatsapp-line ri-lg"></i>
+                                    Get a Quote
+                                </button>
                             </div>
                         </div>
-                    </div>
-
+                    </div>-->
 
 
                 </div>
