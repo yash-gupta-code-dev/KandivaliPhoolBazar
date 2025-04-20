@@ -40,13 +40,9 @@ def ProductPage(request):
 
 
 
-
-
-
-
 def product_detail(request, product_id):
     # Get the product or return 404 if not found
-    product = get_object_or_404(Product, id=product_id)
+    product = get_object_or_404(Product, product_id=product_id)
     
     # Check if the request is an AJAX request (for template loading)
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':

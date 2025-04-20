@@ -1,0 +1,481 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kandivali Phool Market - All Products</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#6d28d9', secondary: '#8b5cf6' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Lato:wght@300;400;700&amp;display=swap"
+          rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        .custom-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+        }
+
+            .custom-checkbox:checked {
+                background-color: #6366f1;
+                border-color: #6366f1;
+            }
+
+                .custom-checkbox:checked::after {
+                    content: "";
+                    position: absolute;
+                    left: 6px;
+                    top: 2px;
+                    width: 6px;
+                    height: 12px;
+                    border: solid white;
+                    border-width: 0 2px 2px 0;
+                    transform: rotate(45deg);
+                }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .product-thumbnail.active {
+            border-color: #6366f1;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white shadow-sm z-50">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <img class="h-12 md:h-16" src="{% static 'assets/images/logo/NoBgLogo.png' %}" alt="Logo" />
+                </div>
+
+                <!-- Mobile Menu Button (hidden on desktop) -->
+                <button class="md:hidden text-gray-600 hover:text-custom focus:outline-none relative left-[25vw]" id="mobile-menu-button">
+                    Menu
+                </button>
+
+                <!-- Desktop Navigation (hidden on mobile) -->
+                <nav class="hidden md:flex space-x-6">
+                    <a href="{% url 'home' %}" class="text-custom hover:text-custom/80">Home</a>
+                    <a href="{% url 'products' %}" class="text-gray-600 hover:text-custom">Products</a>
+                    <a href="#" class="text-gray-600 hover:text-custom">About Us</a>
+                    <a href="#" class="text-gray-600 hover:text-custom">Reviews</a>
+                    <a href="#" class="text-gray-600 hover:text-custom">Contact</a>
+                </nav>
+
+                <!-- Search and Bulk Order (visible on all screens) -->
+                <div class="flex items-center space-x-4 md:space-x-6">
+                    <!-- Search Bar (hidden on mobile unless toggled) -->
+                    <div class="hidden md:block flex-1 max-w-lg mx-4">
+                        <div class="relative">
+                            <input type="text" placeholder="Search products..."
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-custom focus:border-custom" />
+                            <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-custom">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Bulk Order Button -->
+                    <button class="bg-black text-white px-4 py-1 md:px-6 md:py-2 !rounded-button hover:bg-custom/90 whitespace-nowrap text-sm md:text-base">
+                        Bulk Orders
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Search Bar (hidden by default) -->
+            <!-- Mobile Navigation Menu (hidden by default) -->
+            <div class="md:hidden hidden bg-white py-2" id="mobile-menu">
+                <div class="flex flex-col">
+                    <div class=" bg-white" id="mobile-search">
+                        <div class="relative">
+                            <input type="text" placeholder="Search products..."
+                                   class="w-full  border border-gray-300 rounded-lg focus:ring-2 focus:ring-custom focus:border-custom" />
+                            <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-custom">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <a href="{% url 'home' %}" class="text-custom py-2">Home</a>
+                    <a href="{% url 'products' %}" class="text-gray-600 py-2 hover:text-custom">Products</a>
+                    <a href="#" class="text-gray-600 py-2 hover:text-custom">About Us</a>
+                    <a href="#" class="text-gray-600 py-2 hover:text-custom">Reviews</a>
+                    <a href="#" class="text-gray-600 py-2 hover:text-custom">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- JavaScript for mobile menu toggle -->
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function () {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        document.getElementById('search-toggle').addEventListener('click', function () {
+            document.getElementById('mobile-search').classList.toggle('hidden');
+        });
+    </script>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Product Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+            <!-- Product Images -->
+            <div class="space-y-4">
+                <div class="bg-gray-50 rounded-lg overflow-hidden h-96 flex items-center justify-center">
+                    <img id="mainImage" src="{{product.image.url}}" alt="{{product.name}}" class="object-contain h-full w-full object-top">
+                </div>
+
+                <div class="grid grid-cols-4 gap-2">
+                    <div class="product-thumbnail h-24 border-2 border-gray-200 rounded cursor-pointer overflow-hidden">
+                        <img id="mainImage" src="{{product.image.url}}" alt="{{product.name}}" class="object-contain h-full w-full object-top">
+                    </div>
+                    <div class="product-thumbnail h-24 border-2 border-gray-200 rounded cursor-pointer overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=Wedding%20arch%20decorated%20with%20pink%20and%20cream%20roses%20floral%20garland%2C%20elegant%20wedding%20ceremony%20setup%2C%20outdoor%20wedding%20decoration%2C%20professional%20wedding%20photography&width=150&height=150&seq=2&orientation=squarish" alt="Floral Garland Thumbnail 2" class="object-cover h-full w-full object-top">
+                    </div>
+                    <div class="product-thumbnail h-24 border-2 border-gray-200 rounded cursor-pointer overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=Wedding%20ceremony%20aisle%20decorated%20with%20floral%20garlands%20and%20rose%20petals%2C%20elegant%20wedding%20setup%20with%20chairs%2C%20outdoor%20wedding%20decoration%20with%20floral%20arrangements&width=150&height=150&seq=3&orientation=squarish" alt="Floral Garland Thumbnail 3" class="object-cover h-full w-full object-top">
+                    </div>
+                    <div class="product-thumbnail h-24 border-2 border-gray-200 rounded cursor-pointer overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=Wedding%20reception%20table%20decorated%20with%20floral%20garland%20centerpiece%2C%20elegant%20wedding%20table%20setup%20with%20candles%20and%20fine%20dining%2C%20luxury%20wedding%20decoration&width=150&height=150&seq=4&orientation=squarish" alt="Floral Garland Thumbnail 4" class="object-cover h-full w-full object-top">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Details -->
+            <div class="space-y-6">
+                <h1 class="text-3xl font-bold">{{product.name}}</h1>
+
+                <div class="flex items-center space-x-2">
+                    <div class="flex">
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-fill text-yellow-400"></i>
+                        <i class="ri-star-half-fill text-yellow-400"></i>
+                    </div>
+                    <span class="text-sm text-gray-600">(28 reviews)</span>
+                </div>
+
+                <!--<div class="text-2xl font-bold text-primary">$129.99</div>-->
+
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">Description</h2>
+                    <p class="text-gray-700">{{product.description}}</p>
+                </div>
+
+                <div class="space-y-4">
+
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="whatsapp-container">
+                            <button onclick="openWhatsApp()" class="bg-black text-white py-3 px-6 !rounded-button whitespace-nowrap flex items-center justify-center">
+                                <i class="ri-whatsapp-line mr-2"></i>
+                                Get Quote on WhatsApp
+                            </button>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+
+                        <button class="flex items-center text-gray-600 hover:text-primary">
+                            <i class="ri-share-line mr-1"></i>
+                            Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Reviews Section -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-8">Customer Reviews</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Review 1 -->
+                <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20woman%20with%20blonde%20hair%20smiling%2C%20business%20portrait%2C%20neutral%20background%2C%20high%20quality&width=100&height=100&seq=10&orientation=squarish" alt="Emily Anderson" class="w-full h-full object-cover object-top">
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Emily Anderson</h3>
+                            <div class="flex text-yellow-400">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">Beautiful garland that exceeded my expectations! The flowers look incredibly realistic and the quality is outstanding. It was perfect for my wedding ceremony arch.</p>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20man%20with%20dark%20hair%20and%20glasses%2C%20business%20portrait%2C%20neutral%20background%2C%20high%20quality&width=100&height=100&seq=11&orientation=squarish" alt="Michael Chen" class="w-full h-full object-cover object-top">
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Michael Chen</h3>
+                            <div class="flex text-yellow-400">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">Ordered 3 pieces! The colors are vibrant and the flowers are very nicely made. Used it for my daughter's wedding and it transformed our venue completely.</p>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20woman%20with%20brown%20hair%2C%20business%20portrait%2C%20neutral%20background%2C%20high%20quality&width=100&height=100&seq=12&orientation=squarish" alt="Sophia Garcia" class="w-full h-full object-cover object-top">
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Sophia Garcia</h3>
+                            <div class="flex text-yellow-400">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-half-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">Beautiful garland that exceeded my expectations! The flowers look incredibly realistic and the quality is outstanding. It was perfect for my wedding ceremony arch.</p>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20man%20with%20short%20hair%2C%20business%20portrait%2C%20neutral%20background%2C%20high%20quality&width=100&height=100&seq=13&orientation=squarish" alt="James Wilson" class="w-full h-full object-cover object-top">
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">James Wilson</h3>
+                            <div class="flex text-yellow-400">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">Ordered 3 pieces! The colors are vibrant and the flowers are very nicely made. Used it for my daughter's wedding and it transformed our venue completely.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+            <div>
+                <h2 class="text-2xl font-bold mb-4">Get in Touch for Custom Orders</h2>
+                <p class="text-gray-700 mb-6">Need a special design for your special event? Reach out to help create your custom floral arrangements. We're here to make your vision come to life.</p>
+
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+                            <i class="ri-phone-line text-primary"></i>
+                        </div>
+                        <span>+1 (800) 123-4567</span>
+                    </div>
+
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+                            <i class="ri-mail-line text-primary"></i>
+                        </div>
+                        <span>info@floralgarlands.com</span>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4 mt-1">
+                            <i class="ri-map-pin-line text-primary"></i>
+                        </div>
+                        <span>123 Flower Street, Garden City, NY 12345</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                <form class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                        <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-primary focus:border-primary" placeholder="Your name">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-primary focus:border-primary" placeholder="Your email">
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                        <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-primary focus:border-primary" placeholder="Tell us about your requirements"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-black text-white py-3 px-6 !rounded-button whitespace-nowrap">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <a href="#" class="text-2xl font-['Pacifico'] text-white mb-4 inline-block">logo</a>
+                    <p class="text-gray-400 mb-4">We've been crafting exquisite floral designs for over 15 years, specializing in weddings and special events.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Products</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Reviews</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Subscribe to receive updates on new products and special offers.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email address" class="px-4 py-2 bg-gray-800 text-white border-none focus:outline-none focus:ring-1 focus:ring-primary rounded-l">
+                        <button class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap rounded-l-none">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-800">
+                <p class="text-gray-400 text-sm">2025 Exquisite Floral Garden. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-facebook-fill"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-instagram-line"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-pinterest-line"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Product thumbnails functionality
+            const thumbnails = document.querySelectorAll('.product-thumbnail');
+            const mainImage = document.getElementById('mainImage');
+
+            thumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function () {
+                    // Remove active class from all thumbnails
+                    thumbnails.forEach(t => t.classList.remove('active'));
+
+                    // Add active class to clicked thumbnail
+                    this.classList.add('active');
+
+                    // Update main image
+                    const thumbnailImg = this.querySelector('img');
+                    mainImage.src = thumbnailImg.src;
+                });
+            });
+        });
+    </script>
+
+
+    <!--<script>
+        function openWhatsApp() {
+            const phone = '919321665242';
+            const text = encodeURIComponent("I'm inquiring about the apartment listing");
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+            // Try to open WhatsApp directly
+            const whatsappUrl = `https://wa.me/${phone}?text=${text}`;
+            window.open(whatsappUrl, '_blank');
+
+            // Set a timeout to check if the window was blocked
+            const newWindow = window.open('', '_blank');
+            setTimeout(() => {
+                if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                    // If popup was blocked or WhatsApp not available
+                    const shouldDownload = confirm('WhatsApp not detected. Would you like to download it?');
+                    if (shouldDownload) {
+                        window.location.href = 'https://www.whatsapp.com/download';
+                    } else {
+                        // Fallback action (show contact form, etc.)
+                        window.location.href = '/contact';
+                    }
+                }
+            }, 500);
+        }
+    </script>-->
+
+    <script>
+        function openWhatsApp() {
+            const phone = '919321665242';
+            const currentUrl = window.location.href; // Get current page URL
+            const message = `I wish to get a quote on this product. ${currentUrl}`;
+            const text = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phone}?text=${text}`;
+
+            // Open WhatsApp and keep reference to the window
+            const whatsappWindow = window.open(whatsappUrl, '_blank');
+
+            // Set a timeout to check if WhatsApp opened
+            setTimeout(() => {
+                if (!whatsappWindow) {
+                    const shouldDownload = confirm('WhatsApp not detected. Would you like to download it?');
+                    if (shouldDownload) {
+                        window.location.href = 'https://www.whatsapp.com/download';
+                    } else {
+                        window.location.href = '/contact';
+                    }
+                }
+            }, 500);
+        }
+    </script>
+</body>
+</html>
