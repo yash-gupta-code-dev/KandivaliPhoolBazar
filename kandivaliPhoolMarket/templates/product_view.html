@@ -4,7 +4,7 @@
 <head>
    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kandivali Phool Market - All Products</title>
+    <title>{{product.name}} - Kandivali Phool Market</title>
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script>tailwind.config = { theme: { extend: { colors: { primary: '#6d28d9', secondary: '#8b5cf6' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,86 +57,11 @@
 </head>
 <body class="bg-white text-gray-800">
     <!-- Header -->
-    <header class="fixed top-0 w-full bg-white shadow-sm z-50">
-        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16 md:h-20">
-                <!-- Logo -->
-                <div class="flex-shrink-0">
-                    <img class="h-12 md:h-16" src="{% static 'assets/images/logo/NoBgLogo.png' %}" alt="Logo" />
-                </div>
-
-                <!-- Mobile Menu Button (hidden on desktop) -->
-                <button class="md:hidden text-gray-600 hover:text-custom focus:outline-none relative left-[25vw]" id="mobile-menu-button">
-                    Menu
-                </button>
-
-                <!-- Desktop Navigation (hidden on mobile) -->
-                <nav class="hidden md:flex space-x-6">
-                    <a href="{% url 'home' %}" class="text-custom hover:text-custom/80">Home</a>
-                    <a href="{% url 'products' %}" class="text-gray-600 hover:text-custom">Products</a>
-                    <a href="#" class="text-gray-600 hover:text-custom">About Us</a>
-                    <a href="#" class="text-gray-600 hover:text-custom">Reviews</a>
-                    <a href="#" class="text-gray-600 hover:text-custom">Contact</a>
-                </nav>
-
-                <!-- Search and Bulk Order (visible on all screens) -->
-                <div class="flex items-center space-x-4 md:space-x-6">
-                    <!-- Search Bar (hidden on mobile unless toggled) -->
-                    <div class="hidden md:block flex-1 max-w-lg mx-4">
-                        <div class="relative">
-                            <input type="text" placeholder="Search products..."
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-custom focus:border-custom" />
-                            <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-custom">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-
-
-
-                    <!-- Bulk Order Button -->
-                    <button class="bg-black text-white px-4 py-1 md:px-6 md:py-2 !rounded-button hover:bg-custom/90 whitespace-nowrap text-sm md:text-base">
-                        Bulk Orders
-                    </button>
-                </div>
-            </div>
-
-            <!-- Mobile Search Bar (hidden by default) -->
-            <!-- Mobile Navigation Menu (hidden by default) -->
-            <div class="md:hidden hidden bg-white py-2" id="mobile-menu">
-                <div class="flex flex-col">
-                    <div class=" bg-white" id="mobile-search">
-                        <div class="relative">
-                            <input type="text" placeholder="Search products..."
-                                   class="w-full  border border-gray-300 rounded-lg focus:ring-2 focus:ring-custom focus:border-custom" />
-                            <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-custom">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <a href="{% url 'home' %}" class="text-custom py-2">Home</a>
-                    <a href="{% url 'products' %}" class="text-gray-600 py-2 hover:text-custom">Products</a>
-                    <a href="#" class="text-gray-600 py-2 hover:text-custom">About Us</a>
-                    <a href="#" class="text-gray-600 py-2 hover:text-custom">Reviews</a>
-                    <a href="#" class="text-gray-600 py-2 hover:text-custom">Contact</a>
-                </div>
-            </div>
-        </div>
-    </header>
-
+    {% include "header.html" %}
     <!-- JavaScript for mobile menu toggle -->
-    <script>
-        document.getElementById('mobile-menu-button').addEventListener('click', function () {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
-
-        document.getElementById('search-toggle').addEventListener('click', function () {
-            document.getElementById('mobile-search').classList.toggle('hidden');
-        });
-    </script>
-
+   
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
+    <main class="container mx-auto px-4 py-24">
         <!-- Product Section -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
             <!-- Product Images -->
@@ -193,21 +118,117 @@
                                 Get Quote on WhatsApp
                             </button>
                         </div>
-
-
-
                     </div>
 
                     <div class="flex items-center space-x-4">
 
-                        <button class="flex items-center text-gray-600 hover:text-primary">
+                        <button class="flex items-center text-gray-600 hover:text-primary" id="share">
                             <i class="ri-share-line mr-1"></i>
                             Share
                         </button>
+                        
                     </div>
                 </div>
             </div>
         </div>
+
+        
+
+<script>
+document.getElementById('share').addEventListener('click', function () {
+    const url = window.location.href;
+
+    navigator.clipboard.writeText(url)
+        .then(() => {
+            showToast('URL copied to clipboard successfully.');
+        })
+        .catch(err => {
+            showToast('Failed to copy the URL.', true);
+            console.error('Copy failed: ', err);
+        });
+});
+
+function showToast(message, isError = false) {
+    const toast = document.createElement('div');
+
+    toast.innerHTML = `
+        <div style="display: flex; align-items: center;">
+            <div style="
+                background-color: ${isError ? '#d32f2f' : '#2e7d32'};
+                color: white;
+                padding: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-top-left-radius: 8px;
+                border-bottom-left-radius: 8px;
+                font-size: 16px;
+                width: 44px;
+                height: 100%;
+            ">
+                ${isError ? '✖' : '✔'}
+            </div>
+            <div style="
+                background: #ffffff;
+                padding: 14px 16px;
+                font-family: 'Segoe UI', sans-serif;
+                color: #333;
+                font-size: 14.5px;
+                border-top-right-radius: 8px;
+                border-bottom-right-radius: 8px;
+                line-height: 1.4;
+                flex: 1;
+                position: relative;
+            ">
+                ${message}
+                <span style="
+                    position: absolute;
+                    top: 10px;
+                    right: 12px;
+                    font-size: 16px;
+                    color: #999;
+                    cursor: pointer;
+                    transition: color 0.2s ease;
+                " onclick="this.closest('.toast-box').remove()">×</span>
+            </div>
+        </div>
+    `;
+
+    toast.className = 'toast-box';
+
+    Object.assign(toast.style, {
+        position: 'fixed',
+        top: '20px',
+        right: '20px',
+        maxWidth: '380px',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+        borderRadius: '8px',
+        overflow: 'hidden',
+        zIndex: 9999,
+        opacity: 0,
+        transform: 'translateY(-10px)',
+        transition: 'opacity 0.3s ease, transform 0.3s ease',
+    });
+
+    document.body.appendChild(toast);
+
+    // Animate in
+    requestAnimationFrame(() => {
+        toast.style.opacity = 1;
+        toast.style.transform = 'translateY(0)';
+    });
+
+    // Auto-dismiss after 3s
+    setTimeout(() => {
+        toast.style.opacity = 0;
+        toast.style.transform = 'translateY(-10px)';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+</script>
+
+
+
 
         <!-- Customer Reviews Section -->
         <section class="mb-16">
@@ -296,61 +317,12 @@
             </div>
         </section>
 
-        <!-- Contact Form Section -->
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-            <div>
-                <h2 class="text-2xl font-bold mb-4">Get in Touch for Custom Orders</h2>
-                <p class="text-gray-700 mb-6">Need a special design for your special event? Reach out to help create your custom floral arrangements. We're here to make your vision come to life.</p>
-
-                <div class="space-y-4">
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
-                            <i class="ri-phone-line text-primary"></i>
-                        </div>
-                        <span>+1 (800) 123-4567</span>
-                    </div>
-
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
-                            <i class="ri-mail-line text-primary"></i>
-                        </div>
-                        <span>info@floralgarlands.com</span>
-                    </div>
-
-                    <div class="flex items-start">
-                        <div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4 mt-1">
-                            <i class="ri-map-pin-line text-primary"></i>
-                        </div>
-                        <span>123 Flower Street, Garden City, NY 12345</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                <form class="space-y-4">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                        <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-primary focus:border-primary" placeholder="Your name">
-                    </div>
-
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-primary focus:border-primary" placeholder="Your email">
-                    </div>
-
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                        <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-primary focus:border-primary" placeholder="Tell us about your requirements"></textarea>
-                    </div>
-
-                    <button type="submit" class="w-full bg-black text-white py-3 px-6 !rounded-button whitespace-nowrap">Send Message</button>
-                </form>
-            </div>
-        </section>
+          <!-- Email Section is Here -->
+          {% include "email.html" %}
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white pt-12 pb-6">
+    {% comment %} <footer class="bg-gray-900 text-white pt-12 pb-6">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                 <div>
@@ -399,8 +371,10 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer> {% endcomment %}
 
+    {% include 'footer.html' %}
+    <script src="{% static 'assets/js/search.js' %}"></script>
     <script>
 
 
@@ -425,57 +399,29 @@
         });
     </script>
 
-
-    <!--<script>
-        function openWhatsApp() {
-            const phone = '919321665242';
-            const text = encodeURIComponent("I'm inquiring about the apartment listing");
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-            // Try to open WhatsApp directly
-            const whatsappUrl = `https://wa.me/${phone}?text=${text}`;
-            window.open(whatsappUrl, '_blank');
-
-            // Set a timeout to check if the window was blocked
-            const newWindow = window.open('', '_blank');
-            setTimeout(() => {
-                if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-                    // If popup was blocked or WhatsApp not available
-                    const shouldDownload = confirm('WhatsApp not detected. Would you like to download it?');
-                    if (shouldDownload) {
-                        window.location.href = 'https://www.whatsapp.com/download';
-                    } else {
-                        // Fallback action (show contact form, etc.)
-                        window.location.href = '/contact';
-                    }
-                }
-            }, 500);
-        }
-    </script>-->
-
     <script>
         function openWhatsApp() {
-            const phone = '919321665242';
+            const phone = '918850721321';
             const currentUrl = window.location.href; // Get current page URL
             const message = `I wish to get a quote on this product. ${currentUrl}`;
             const text = encodeURIComponent(message);
+            // Construct WhatsApp URL with encoded text parameter
             const whatsappUrl = `https://wa.me/${phone}?text=${text}`;
 
-            // Open WhatsApp and keep reference to the window
+            // Open WhatsApp chat window in a new tab
             const whatsappWindow = window.open(whatsappUrl, '_blank');
 
-            // Set a timeout to check if WhatsApp opened
+            // Check if the window was blocked or failed to open
             setTimeout(() => {
-                if (!whatsappWindow) {
-                    const shouldDownload = confirm('WhatsApp not detected. Would you like to download it?');
+                if (!whatsappWindow || whatsappWindow.closed) {
+                    const shouldDownload = confirm('WhatsApp not detected or popup blocked. Would you like to download it?');
                     if (shouldDownload) {
                         window.location.href = 'https://www.whatsapp.com/download';
-                    } else {
-                        window.location.href = '/contact';
                     }
                 }
-            }, 500);
+            });
         }
     </script>
 </body>
+
 </html>
