@@ -1,12 +1,17 @@
 from django.db import models
 from django.contrib import admin
+import os
+from django.db.models.signals import post_delete, pre_save
+from django.dispatch import receiver
+from django.conf import settings
+
 # Create your models here.
 
 
 class Product(models.Model):
 
-    #Id for fetching Product
-    product_id = models.AutoField(primary_key = True)
+    # Id for fetching Product
+    product_id = models.AutoField(primary_key=True)
     # The name of the product (e.g., "Apple iPhone 15")
     name = models.CharField(max_length=255)
 
@@ -49,7 +54,6 @@ class Product(models.Model):
         return self.name
 
 
-
 class Category(models.Model):
     name = models.CharField(
         max_length=100, unique=True
@@ -72,5 +76,31 @@ class Category(models.Model):
         return self.name
 
 
-admin.site.register(Product)
-admin.site.register(Category)
+
+
+
+
+# Delete image file when a Product is deleted
+@receiver(post_delete, sender=Product)
+def delete_image_on_delete(sender, instance, **kwargs):
+    if instance.image and os.path.isfile(instance.image.path):
+        os.remove(instance.image.path)
+
+
+# Delete old image file when Product is updated with a new image
+@receiver(pre_save, sender=Product)
+def delete_image_on_update(sender, instance, **kwargs):
+    if not instance.pk:
+        return  # New instance, nothing to delete
+
+    try:
+        old_instance = Product.objects.get(pk=instance.pk)
+    except Product.DoesNotExist:
+        return
+
+    old_image = old_instance.image
+    new_image = instance.image
+
+    if old_image and old_image != new_image:
+        if os.path.isfile(old_image.path):
+            os.remove(old_image.path)
