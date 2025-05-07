@@ -1,0 +1,48 @@
+<section class="py-16 bg-gray-100" id="location">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-semibold text-center mb-6">Our Location</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+      
+      <!-- Map Embed -->
+      <div class="w-full h-96">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d235.48928538339197!2d72.8522436501234!3d19.202688685000215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b784f624de47%3A0xdede51beffd742b6!2sNational%20Academy%20(kandivali)!5e0!3m2!1sen!2sin!4v1745642279674!5m2!1sen!2sin"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <!-- Address + Maps Link -->
+      <div class="text-center md:text-left">
+        <h3 class="text-xl font-bold mb-2">Visit Our Shop</h3>
+        <p class="text-gray-700 mb-4">
+          123 Blossom Street, Flower City, State, 00000
+        </p>
+        <a id="mapLink" href="https://www.google.com/maps/dir//National+Academy+(kandivali)+26,+2nd+Floor,+Dattani+Centre+above+Sandeep+Hotel,+opp.+Railway+Station,+Kandivali,+Govind+Dalvi+Nagar,+Kandivali+(E+Mumbai,+Maharashtra+400101/@19.2026241,72.8522811,21z/data=!4m5!4m4!1m0!1m2!1m1!1s0x3be7b784f624de47:0xdede51beffd742b6" target="_blank" class="inline-block bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition">
+          Open in Maps
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const mapLink = document.getElementById("mapLink");
+    const address = "123 Blossom Street, Flower City, State";
+
+    const isAppleDevice = /iPad|iPhone|Macintosh/.test(navigator.userAgent) && !window.MSStream;
+
+    if (isAppleDevice) {
+        mapLink.href = `https://www.google.com/maps/dir//National+Academy+(kandivali)+26,+2nd+Floor,+Dattani+Centre+above+Sandeep+Hotel,+opp.+Railway+Station,+Kandivali,+Govind+Dalvi+Nagar,+Kandivali+(E+Mumbai,+Maharashtra+400101/@19.2026241,72.8522811,21z/data=!4m5!4m4!1m0!1m2!1m1!1s0x3be7b784f624de47:0xdede51beffd742b6`;
+    } else {
+        mapLink.href = `https://www.google.com/maps/dir//National+Academy+(kandivali)+26,+2nd+Floor,+Dattani+Centre+above+Sandeep+Hotel,+opp.+Railway+Station,+Kandivali,+Govind+Dalvi+Nagar,+Kandivali+(E+Mumbai,+Maharashtra+400101/@19.2026241,72.8522811,21z/data=!4m5!4m4!1m0!1m2!1m1!1s0x3be7b784f624de47:0xdede51beffd742b6`;
+    }
+  });
+</script>

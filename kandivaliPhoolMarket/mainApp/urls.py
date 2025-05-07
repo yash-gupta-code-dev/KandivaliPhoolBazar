@@ -28,6 +28,7 @@ urlpatterns = [
      path('base/', BaseHTML, name='base'),
      path('products/', ProductPage, name='products'),
      path('products/<int:product_id>/', product_detail, name='product-detail'),
+      path('send-email/', send_email, name='send_email'),
 
 
 ]

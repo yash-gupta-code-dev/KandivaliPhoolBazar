@@ -319,59 +319,11 @@ function showToast(message, isError = false) {
 
           <!-- Email Section is Here -->
           {% include "email.html" %}
+          {% include "maplocation.html" %}
+
     </main>
 
-    <!-- Footer -->
-    {% comment %} <footer class="bg-gray-900 text-white pt-12 pb-6">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                <div>
-                    <a href="#" class="text-2xl font-['Pacifico'] text-white mb-4 inline-block">logo</a>
-                    <p class="text-gray-400 mb-4">We've been crafting exquisite floral designs for over 15 years, specializing in weddings and special events.</p>
-                </div>
-
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">Products</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Reviews</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
-                    <p class="text-gray-400 mb-4">Subscribe to receive updates on new products and special offers.</p>
-                    <div class="flex">
-                        <input type="email" placeholder="Your email address" class="px-4 py-2 bg-gray-800 text-white border-none focus:outline-none focus:ring-1 focus:ring-primary rounded-l">
-                        <button class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap rounded-l-none">Subscribe</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-800">
-                <p class="text-gray-400 text-sm">2025 Exquisite Floral Garden. All rights reserved.</p>
-                <div class="flex space-x-4 mt-4 md:mt-0">
-                    <a href="#" class="text-gray-400 hover:text-white">
-                        <div class="w-8 h-8 flex items-center justify-center">
-                            <i class="ri-facebook-fill"></i>
-                        </div>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white">
-                        <div class="w-8 h-8 flex items-center justify-center">
-                            <i class="ri-instagram-line"></i>
-                        </div>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white">
-                        <div class="w-8 h-8 flex items-center justify-center">
-                            <i class="ri-pinterest-line"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer> {% endcomment %}
+    
 
     {% include 'footer.html' %}
     <script src="{% static 'assets/js/search.js' %}"></script>

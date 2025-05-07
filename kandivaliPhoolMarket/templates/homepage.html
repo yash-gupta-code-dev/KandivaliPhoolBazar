@@ -49,7 +49,7 @@
                                         Shop Now
                                     </button>
 
-                                    <button class="bg-white text-custom px-6 py-2 sm:px-8 sm:py-3 !rounded-button hover:bg-gray-100 transition-colors">
+                                    <button onclick="openWhatsApp()" class="bg-white text-custom px-6 py-2 sm:px-8 sm:py-3 !rounded-button hover:bg-gray-100 transition-colors">
                                         Contact for Bulk Orders
                                     </button>
                                 </div>
@@ -72,9 +72,9 @@
                 <div class="text-center max-w-3xl mx-auto">
                     <h2 class="font-[&#39;Playfair_Display&#39;] text-4xl mb-6">Welcome to Bloom &amp; Garland</h2>
                     <p class="text-gray-600 mb-8">We handcraft traditional Indian garlands that add grace, color, and sacred beauty to your most cherished moments. Made with love and the finest flowers and materials, each piece reflects timeless craftsmanship and the spirit of celebration, perfectly suited for weddings, pujas, and festive occasions.</p>
-                    <button class="bg-custom text-white px-8 py-3 !rounded-button hover:bg-custom/90">
-                        Explore Our Products
-                    </button>
+                   <a href="{% url 'products' %}"> <button class="bg-custom text-white px-8 py-3 !rounded-button hover:bg-custom/90">
+                    Explore Our Products
+                </button></a>
                 </div>
             </div>
         </section>
@@ -88,7 +88,7 @@
                         <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300"></div>
                         <div class="absolute inset-0 flex items-center justify-center">
                             <div class="text-center">
-                                <h3 class="text-white text-2xl font-[&#39;Playfair_Display&#39;] mb-4">Wedding Garlands</h3>
+                                <h3 id="category1" class="text-white text-2xl font-[&#39;Playfair_Display&#39;] mb-4">Wedding Garlands</h3>
                                 <button class="bg-white text-custom px-6 py-2 !rounded-button hover:bg-gray-100">
                                     View Collection
                                 </button>
@@ -123,6 +123,7 @@
             </div>
         </section>
 
+        
         <section class="py-20 bg-gray-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="font-[&#39;Playfair_Display&#39;] text-4xl text-center mb-12">What Our Customers Say</h2>
@@ -135,13 +136,6 @@
                                         <img src="{% static 'assets\images\people/man1.png'%}" class="w-12 h-12 rounded-full mr-4" alt="Customer" />
                                         <div>
                                             <h4 class="font-semibold">Amit Tiwari</h4>
-                                            <div class="flex text-custom">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
                                         </div>
                                     </div>
                                     <p class="text-gray-600">&#34;Flowers toh bilkul stunning the! Mere wedding day ke liye perfect choice thi. Quality aur detailing ne meri expectations ko cross kar diya.&#34;</p>
@@ -154,6 +148,7 @@
         </section>
 
       {% include 'email.html' %}
+      {% include 'maplocation.html' %}
 
 
     </main>
@@ -171,6 +166,50 @@
 </script>
 
 <script src="{% static 'assets/js/search.js' %}"></script>
+<script>
+    function openWhatsApp() {
+        const phone = '918850721321';
+        const currentUrl = window.location.href; // Get current page URL
+        const message = `Hello! I am looking for a Bulk order for products.`;
+        const urlencodedtext = encodeURIComponent(message);
+        // Construct WhatsApp URL with encoded text parameter
+        const whatsappUrl = `https://wa.me/${phone}?text=${urlencodedtext}`;
+
+        // Open WhatsApp chat window in a new tab
+        const whatsappWindow = window.open(whatsappUrl, '_blank');
+
+        // Check if the window was blocked or failed to open
+        setTimeout(() => {
+            if (!whatsappWindow || whatsappWindow.closed) {
+                const shouldDownload = confirm('WhatsApp not detected or popup blocked. Would you like to download it?');
+                if (shouldDownload) {
+                    window.location.href = 'https://www.whatsapp.com/download';
+                }
+            }
+        });
+    }
+</script>
+
+
+
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll("#product_collections button");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", function () {
+        const h3 = button.closest("div.text-center").querySelector("h3")    ;
+        const category = h3 ? h3.textContent.trim() : "";
+
+        if (category) {
+          const searchParam = encodeURIComponent(category);
+          window.location.href = `/products?search=${searchParam}`;
+        }
+      });
+    });
+  });
+</script>
+
 </body>
 
 </html>
