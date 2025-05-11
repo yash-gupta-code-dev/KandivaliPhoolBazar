@@ -27,12 +27,16 @@ SECRET_KEY = "django-insecure-j(jng#ucosv2)4bb*pmh-*bl!e^0-0nn2!7%*rq)7j-r2&pu&l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["107.21.154.93",
+                 "127.0.0.1",
+                 "www.kandivaliphoolmarket.com",
+                 ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'simpleui', 
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -68,6 +72,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request",
             ],
         },
     },
@@ -117,6 +122,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+SIMPLEUI_OPTIONS = {
+    'language': 'en',  # Force English globally
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -132,7 +140,17 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"  # Or your provider (SendGrid, Outlook, etc.)
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "writingnaabbit@gmail.com"
+EMAIL_HOST_PASSWORD = (
+    "your_app_password"  # NOT your Gmail password – use an App Password
+)
