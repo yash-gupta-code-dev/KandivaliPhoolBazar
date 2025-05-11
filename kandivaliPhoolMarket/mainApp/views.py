@@ -8,7 +8,9 @@ from .serializers import ProductSerializer
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .utils import send_email_util
-
+from django.core.mail import send_mail
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # Create your views here.
 
@@ -53,18 +55,22 @@ def product_detail(request, product_id):
 
 
 
+@csrf_exempt  # Optional if using CSRF token in JS
 def send_email(request):
     if request.method == "POST":
-        name = request.POST.get("name")
-        email = request.POST.get("email")
-        message = request.POST.get("message")
+        data = json.loads(request.body)
+        name = data.get("name")
+        email = data.get("email")
+        message = data.get("message")
 
-        full_message = f"From: {name}\nEmail: {email}\n\n{message}"
-        result = send_email_util(
-            "writingnaabbit@gmail.com", "New Inquiry from Website", full_message
+        full_message = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
+
+        send_mail(
+            subject="New Contact Form Submission",
+            message=full_message,
+            from_email="your_email@gmail.com",
+            recipient_list=["contact@yourdomain.com"],
+            fail_silently=False,
         )
-
-        # Store a success message (optional)
-        request.session["email_result"] = result
-
-    return redirect(request.META.get("HTTP_REFERER", "/"))
+        return JsonResponse({"status": "success"})
+    return JsonResponse({"status": "invalid request"}, status=400)

@@ -27,21 +27,16 @@ SECRET_KEY = "django-insecure-j(jng#ucosv2)4bb*pmh-*bl!e^0-0nn2!7%*rq)7j-r2&pu&l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["107.21.154.93",
+                 "www.kandivaliphoolmarket.com",
+                 ]
 
 
 # Application definition
 
-INSTALLED_APPS = [    
-       "unfold",  # before django.contrib.admin
-    "unfold.contrib.filters",  # optional, if special filters are needed
-    "unfold.contrib.forms",  # optional, if special form elements are needed
-    "unfold.contrib.inlines",  # optional, if special inlines are needed
-    "unfold.contrib.import_export",  # optional, if django-import-export package is used
-    "unfold.contrib.guardian",  # optional, if django-guardian package is used
-    "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
-    "django.contrib.admin", 
-    
+INSTALLED_APPS = [
+    'simpleui', 
+    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -50,7 +45,6 @@ INSTALLED_APPS = [
     # rest Framework
     "rest_framework",
     # Custom django-app Here
-    
     "mainApp",
 ]
 
@@ -127,6 +121,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+SIMPLEUI_OPTIONS = {
+    'language': 'en',  # Force English globally
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -149,8 +146,10 @@ MEDIA_URL = "/media/"
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"  # Or your provider (SendGrid, Outlook, etc.)
 EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "writingnaabbit@gmail.com"
-EMAIL_HOST_PASSWORD = ""
+EMAIL_HOST_PASSWORD = (
+    "your_app_password"  # NOT your Gmail password – use an App Password
+)
