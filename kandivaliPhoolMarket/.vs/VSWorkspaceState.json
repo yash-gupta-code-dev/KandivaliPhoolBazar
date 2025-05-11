@@ -3,9 +3,9 @@
     "",
     "\\kandivaliPhoolMarket",
     "\\mainApp",
-    "\\static\\assets\\images",
+    "\\media\\products",
     "\\templates"
   ],
-  "SelectedNode": "\\static",
+  "SelectedNode": "\\kandivaliPhoolMarket\\settings.py",
   "PreviewInSolutionExplorer": false
 }
