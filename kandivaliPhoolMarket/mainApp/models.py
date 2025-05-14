@@ -1,3 +1,4 @@
+from tkinter import TRUE
 from django.db import models
 from django.contrib import admin
 import os
@@ -21,19 +22,7 @@ class Product(models.Model):
     # A detailed description of the product
     description = models.TextField(blank=False)
 
-    # Regular price of the product
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-
-    # Optional discounted price, if there's a sale or promotion
-    discounted_price = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=False
-    )
-
-    # Current quantity of the product in stock
-    stock = models.PositiveIntegerField(blank=False)
-
-    # Whether the product is available for purchase or not
-    available = models.BooleanField(default=True)
+   
 
     # Timestamp of when the product was first created
     created_at = models.DateTimeField(auto_now_add=True)
@@ -48,7 +37,8 @@ class Product(models.Model):
 
     # Optional product image, uploaded to the "products/" folder
     image = models.ImageField(upload_to="products/", blank=False, null=True)
-
+    image2 = models.ImageField(upload_to="products/", blank=True, null=True)
+    
     def __str__(self):
         # Human-readable name for admin or shell displays
         return self.name

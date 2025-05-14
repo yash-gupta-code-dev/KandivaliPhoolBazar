@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    'simpleui', 
+    "simpleui",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -88,6 +88,11 @@ DATABASES = {
     }
 }
 
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,  # Adjust page size as needed
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -120,7 +125,7 @@ USE_I18N = True
 USE_TZ = True
 
 SIMPLEUI_OPTIONS = {
-    'language': 'en',  # Force English globally
+    "language": "en",  # Force English globally
 }
 
 # Static files (CSS, JavaScript, Images)

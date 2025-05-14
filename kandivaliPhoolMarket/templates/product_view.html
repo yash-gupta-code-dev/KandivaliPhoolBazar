@@ -74,15 +74,13 @@
                     <div class="product-thumbnail h-24 border-2 border-gray-200 rounded cursor-pointer overflow-hidden">
                         <img id="mainImage" src="{{product.image.url}}" alt="{{product.name}}" class="object-contain h-full w-full object-top">
                     </div>
-                    <div class="product-thumbnail h-24 border-2 border-gray-200 rounded cursor-pointer overflow-hidden">
-                        <img src="https://readdy.ai/api/search-image?query=Wedding%20arch%20decorated%20with%20pink%20and%20cream%20roses%20floral%20garland%2C%20elegant%20wedding%20ceremony%20setup%2C%20outdoor%20wedding%20decoration%2C%20professional%20wedding%20photography&width=150&height=150&seq=2&orientation=squarish" alt="Floral Garland Thumbnail 2" class="object-cover h-full w-full object-top">
-                    </div>
-                    <div class="product-thumbnail h-24 border-2 border-gray-200 rounded cursor-pointer overflow-hidden">
-                        <img src="https://readdy.ai/api/search-image?query=Wedding%20ceremony%20aisle%20decorated%20with%20floral%20garlands%20and%20rose%20petals%2C%20elegant%20wedding%20setup%20with%20chairs%2C%20outdoor%20wedding%20decoration%20with%20floral%20arrangements&width=150&height=150&seq=3&orientation=squarish" alt="Floral Garland Thumbnail 3" class="object-cover h-full w-full object-top">
-                    </div>
-                    <div class="product-thumbnail h-24 border-2 border-gray-200 rounded cursor-pointer overflow-hidden">
-                        <img src="https://readdy.ai/api/search-image?query=Wedding%20reception%20table%20decorated%20with%20floral%20garland%20centerpiece%2C%20elegant%20wedding%20table%20setup%20with%20candles%20and%20fine%20dining%2C%20luxury%20wedding%20decoration&width=150&height=150&seq=4&orientation=squarish" alt="Floral Garland Thumbnail 4" class="object-cover h-full w-full object-top">
-                    </div>
+
+                 {% if product.image2 %}
+    <div class="product-thumbnail h-24 border-2 border-gray-200 rounded cursor-pointer overflow-hidden">
+        <img id="mainImage" src="{{ product.image2.url }}" alt="{{ product.name }}" class="object-contain h-full w-full object-top">
+    </div>
+{% endif %}
+
                 </div>
             </div>
 
@@ -105,7 +103,29 @@
 
                 <div>
                     <h2 class="text-lg font-semibold mb-2">Description</h2>
-                    <p class="text-gray-700">{{product.description}}</p>
+                    <div class="relative">
+  <div id="description" 
+       class="text-gray-700 max-w-full sm:max-w-md md:max-w-lg lg:max-w-2xl whitespace-pre-wrap break-words overflow-hidden line-clamp-3 transition-all duration-300">
+    {{ product.description }}
+  </div>
+
+  <button id="toggleBtn" 
+          class="mt-2 text-blue-500 hover:underline focus:outline-none">
+    Show more
+  </button>
+</div>
+
+<script>
+  const desc = document.getElementById('description');
+  const toggleBtn = document.getElementById('toggleBtn');
+
+  toggleBtn.addEventListener('click', () => {
+    desc.classList.toggle('line-clamp-3');
+    const isClamped = desc.classList.contains('line-clamp-3');
+    toggleBtn.textContent = isClamped ? 'Show more' : 'Show less';
+  });
+</script>
+
                 </div>
 
                 <div class="space-y-4">

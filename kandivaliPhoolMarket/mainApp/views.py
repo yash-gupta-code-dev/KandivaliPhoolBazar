@@ -11,6 +11,8 @@ from .utils import send_email_util
 from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.core.paginator import Paginator
+
 
 # Create your views here.
 
@@ -38,13 +40,19 @@ class ProductListView(APIView):
 
 
 def ProductPage(request):
-    return render(request, "product.html")
+    product_list = Product.objects.all().order_by("product_id")
+    paginator = Paginator(product_list, 10)  # Show 20 products per page
+
+    page_number = request.GET.get("page")  # Get the page number from query parameters
+    product = paginator.get_page(page_number)  # Get the products for that page
+
+    return render(request, "product.html", {"product": product})
 
 
 def product_detail(request, product_id):
     # Get the product or return 404 if not found
     product = get_object_or_404(Product, product_id=product_id)
-
+    print(product)
     # Check if the request is an AJAX request (for template loading)
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         # Return just the product detail template
@@ -52,7 +60,6 @@ def product_detail(request, product_id):
 
     # Regular request - return full page
     return render(request, "product_view.html", {"product": product})
-
 
 
 @csrf_exempt  # Optional if using CSRF token in JS
