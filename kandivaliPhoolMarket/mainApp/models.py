@@ -94,3 +94,17 @@ def delete_image_on_update(sender, instance, **kwargs):
     if old_image and old_image != new_image:
         if os.path.isfile(old_image.path):
             os.remove(old_image.path)
+
+
+
+class Location(models.Model):
+    name = models.CharField(max_length=100)
+    maps_embed_url = models.URLField(max_length=1000)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
+admin.site.register(Location)

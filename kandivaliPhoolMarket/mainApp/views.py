@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .models import Product, Category
+from .models import Product, Category, Location
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -81,3 +81,12 @@ def send_email(request):
         )
         return JsonResponse({"status": "success"})
     return JsonResponse({"status": "invalid request"}, status=400)
+
+
+def map_view(request):
+    # Get the first location (or filter as needed)
+    location = Location.objects.first()
+    context = {
+        'maps_embed_url': location.maps_embed_url if location else None
+    }
+    return render(request, 'map_template.html', context)
